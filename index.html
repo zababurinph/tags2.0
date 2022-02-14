@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор хэштегов</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <div class="navbar">
+            <h1>Генератор хэштегов</h1>
+            <img src="/images/settings.png" onclick="DELETE()" />
+        </div>
+
+        <div class="table">
+            <div class="column" style="min-width: 11em;">
+                <div class="header">
+                    <div>Основные</div>
+                    <b onclick="POST()">+</b>
+                </div>
+                <p class="tags" id="main">server lost</p>
+            </div>
+            <div class="column" style="min-width: 16.5em;">
+                <div class="header">
+                    <div>Высокочастотные</div>
+                    <b>+</b>
+                </div>
+                <p class="tags" id="high">server lost</p>
+            </div>
+            <div class="column" style="min-width: 16.5em;">
+                <div class="header">
+                    <div>Среднечастотные</div>
+                    <b>+</b>
+                </div>
+                <p class="tags" id="mid">server lost</p>
+            </div>
+            <div class="column" style="min-width: 15.5em;">
+                <div class="header">
+                    <div>Низкочастотные</div>
+                    <b>+</b>
+                </div>
+                <p class="tags" id="low">server lost</p>
+            </div>
+        </div>
+
+        <div class="podval">
+            <p class="header">Введите количество тегов каждого уровня</p>
+            <div class="vvod">
+                <div class="block">
+                    <i>Высокочастотные:</i>
+                    <input type="number" />
+                </div>
+                <div class="block">
+                    <i>Среднечастотные:</i>
+                    <input type="number" />
+                </div>
+                <div class="block">
+                    <i>Низкочастотные:</i>
+                    <input type="number" />
+                </div>
+            </div>
+            <button>Сгенерировать</button>
+            <textarea></textarea>
+        </div>
+    </main>
+    <script src="/js/script.js"></script>
+</body>
+
+</html>
