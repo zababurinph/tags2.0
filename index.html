@@ -5,43 +5,53 @@
     <meta charset="UTF-8">
     <title>Генератор хэштегов</title>
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/table.css" rel="stylesheet">
+    <link href="/css/navbar.css" rel="stylesheet">
 </head>
 
 <body>
     <main>
         <div class="navbar">
             <h1>Генератор хэштегов</h1>
-            <img src="/images/settings.png" onclick="DELETE()" />
+            <img src="/images/settings.png"/>
         </div>
 
         <div class="table">
             <div class="column" style="min-width: 11em;">
                 <div class="header">
                     <div>Основные</div>
-                    <b onclick="POST()">+</b>
+                    <b onclick="add(main)">+</b>
                 </div>
-                <p class="tags" id="main">server lost</p>
+                <ul class="tags" id="main">
+                    <li>server lost</li>
+                </ul>
             </div>
             <div class="column" style="min-width: 16.5em;">
                 <div class="header">
                     <div>Высокочастотные</div>
-                    <b>+</b>
+                    <b onclick="add(high)">+</b>
                 </div>
-                <p class="tags" id="high">server lost</p>
+                <ul class="tags" id="high">
+                    <li>server lost</li>
+                </ul>
             </div>
             <div class="column" style="min-width: 16.5em;">
                 <div class="header">
                     <div>Среднечастотные</div>
-                    <b>+</b>
+                    <b onclick="add(mid)">+</b>
                 </div>
-                <p class="tags" id="mid">server lost</p>
+                <ul class="tags" id="mid">
+                    <li>server lost</li>
+                </ul>
             </div>
             <div class="column" style="min-width: 15.5em;">
                 <div class="header">
                     <div>Низкочастотные</div>
-                    <b>+</b>
+                    <b onclick="add(low)">+</b>
                 </div>
-                <p class="tags" id="low">server lost</p>
+                <ul class="tags" id="low">
+                    <li>server lost</li>
+                </ul>
             </div>
         </div>
 

@@ -1,0 +1,100 @@
+.table {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 6em 30px 0 30px;
+}
+
+.column {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin: 5px;
+    box-shadow: var(--shadow);
+}
+
+.column .header {
+    position: relative;
+    text-align: center;
+    background-color: var(--color-primary);
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.column .header b {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    background-color: white;
+    color: black;
+    width: 1em;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.column .header b:hover {
+    background-color: rgb(228, 228, 228);
+}
+
+.column .header b:active {
+    background-color: white;
+}
+
+.column .tags {
+    padding: 10px 0;
+    margin: 0;
+    flex: 1 1 auto;
+    list-style-type: none;
+}
+
+.column .item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.column .tag {
+    font-size: 1em;
+    font-family: 'Comfortaa';
+    border: none;
+    height: 1.5em;
+    color: black;
+    width: 100%;
+    padding: 0 17px;
+    margin: 2px 0;
+}
+
+.column .tag:hover {
+    background-color: rgb(228, 228, 228);
+}
+
+.column .tag:active {
+    background-color: white;
+}
+
+.column .del {
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+    width: 1.2em;
+    height: 1.2em;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.column .del:hover {
+    background-color: rgb(228, 228, 228);
+}
+
+.column .del:active {
+    background-color: white;
+}
+
+.column .hash {
+    position: absolute;
+    left: 5px;
+}

@@ -1,0 +1,31 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: calc(100vw - 100px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.navbar h1 {
+    font-size: 1.7em;
+}
+
+.navbar img {
+    height: 35px;
+    cursor: pointer;
+    filter: drop-shadow(var(--shadow));
+    transition: transform 0.5s, filter 0.1s;
+}
+
+.navbar img:hover {
+    filter: brightness(90%);
+    transform: rotate(45deg);
+}
+
+.navbar img:active {
+    filter: brightness(100%);
+}
