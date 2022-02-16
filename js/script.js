@@ -71,6 +71,8 @@ const addFunction = (add, column, listener) => {
 
     let input = document.querySelector(`#${column.id}${data[column.id].length}`);
     input.addEventListener('click', inputClicker);
+    const inputlistener = (e) => { if (e.key === 'Enter') allClicker(e, column, input, add, listener, alllistener)};
+    input.addEventListener('keypress', inputlistener);
     const alllistener = (e) => allClicker(e, column, input, add, listener, alllistener); document.addEventListener('click', alllistener );
     // console.log(input);
 }
@@ -90,12 +92,13 @@ function inputClicker(e) {
     console.log('input');
 }
 function allClicker(e, column, input, add, listener, alllistener) {
-    if (e.target !== input && e.target !== add) {
+    if ((e.target !== input || e.key === 'Enter') && e.target !== add) {
         input.removeEventListener('click', inputClicker);
         document.removeEventListener('click', alllistener);
         add.removeEventListener('click', addClicker);
         add.addEventListener('click', listener);
         input.autofocus = false;
+        input.blur();
 
         if (input.value !== '') {
             data[column.id].push(input.value);
