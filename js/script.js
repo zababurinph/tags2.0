@@ -1,8 +1,15 @@
 const url = 'https://620a9a0692946600171c5b7f.mockapi.io/db/tags/';
+
 const main = document.querySelector('#main');
 const high = document.querySelector('#high');
 const mid = document.querySelector('#mid');
 const low = document.querySelector('#low');
+
+const addmain = document.querySelector('#addmain');
+const addhigh = document.querySelector('#addhigh');
+const addmid = document.querySelector('#addmid');
+const addlow = document.querySelector('#addlow');
+
 const id = 0;
 
 const item = (i, id, column) => {
@@ -22,69 +29,79 @@ let data = {
     low: ['serverlost1', 'serverlost2', 'serverlost3', 'serverlost4']
 }
 
-const dataToHTML = () => {
-    let inner = ''; data.main.map((i, index) => inner += item(i, index, 'main')); main.innerHTML = inner;
-    inner = []; data.high.map((i, index) => inner += item(i, index, 'high')); high.innerHTML = inner;
-    inner = []; data.mid.map((i, index) => inner += item(i, index, 'mid')); mid.innerHTML = inner;
-    inner = []; data.low.map((i, index) => inner += item(i, index, 'low')); low.innerHTML = inner;
+const dataItemToHTML = (column) => {
+    let inner = '';
+    data[column.id].map((i, index) => inner += item(i, index, column.id));
+    column.innerHTML = inner;
 }
-dataToHTML();
+
+const dataToHTML = () => {
+    dataItemToHTML(main);
+    dataItemToHTML(high);
+    dataItemToHTML(mid);
+    dataItemToHTML(low);
+}
 
 const refresh = () => fetch(url)
     .then(response => response.json())
     .then(commits => {
-        console.log(commits[id]);
+        console.log('Download:', commits[id]);
         data = commits[id];
         dataToHTML();
     });
 refresh();
 
-const add = async (column, name) => {
-    column.innerHTML += `<li>
+const mainlistener = () => addFunction(addmain, main, mainlistener); addmain.addEventListener('click', mainlistener);
+const highlistener = () => addFunction(addhigh, high, highlistener); addhigh.addEventListener('click', highlistener);
+const midlistener = () => addFunction(addmid, mid, midlistener); addmid.addEventListener('click', midlistener);
+const lowlistener = () => addFunction(addlow, low, lowlistener); addlow.addEventListener('click', lowlistener);
+
+const addFunction = (add, column, listener) => {
+    let inner = `<li>
         <div class='item'>
             <div class='hash'>#</div>
-            <input type='text' class='tag' id='${name}${data[name].length}' autofocus>
-            <div class='del' onclick="DELETE('${name}', ${data[name].length})">x</div>
+            <input type='text' class='tag' id='${column.id}${data[column.id].length}' autofocus>
+            <div class='del' onclick="DELETE('${column.id}', ${data[column.id].length})">x</div>
      </div>
     </li>`;
+    column.insertAdjacentHTML('beforeend', inner);
 
-    let input = document.querySelector(`#${name}${data[name].length}`)
-    input.addEventListener('click', e => inputClicker(e))
-    let add = document.querySelector(`#add${name}`)
-    add.addEventListener('click', e => addClicker(e, name, input))
-    document.addEventListener('click', e => allClicker(e, name, input, add))
+    add.removeEventListener('click', listener);
+    add.addEventListener('click', addClicker);
+
+    let input = document.querySelector(`#${column.id}${data[column.id].length}`);
+    input.addEventListener('click', inputClicker);
+    const alllistener = (e) => allClicker(e, column, input, add, listener, alllistener); document.addEventListener('click', alllistener );
+    // console.log(input);
 }
 
-function addClicker(e, name, input) {
+function addClicker(e) {
     e.stopPropagation();
-
-    // if (input.value !== '') {
-    //     data[name].push(input.value);
+    // if (value !== '') {
+    //     data[name].push(value);
     //     // PUT();
     // }
 
     console.log('add');
-    console.log(data);
+    // console.log(data);
 }
 function inputClicker(e) {
     e.stopPropagation();
     console.log('input');
 }
-function allClicker(e, name, input, add) {
+function allClicker(e, column, input, add, listener, alllistener) {
     if (e.target !== input && e.target !== add) {
         input.removeEventListener('click', inputClicker);
+        document.removeEventListener('click', alllistener);
         add.removeEventListener('click', addClicker);
-        this.removeEventListener('click', allClicker);
+        add.addEventListener('click', listener);
+        input.autofocus = false;
 
         if (input.value !== '') {
-            data[name].push(input.value);
+            data[column.id].push(input.value);
             PUT();
         }
-        else {
-            let inner = '';
-            data[name].map((i, index) => inner += item(i, index, name));
-            document.querySelector(`#${name}`).innerHTML = inner;
-        }
+        else dataItemToHTML(column);
 
         console.log(data);
     }

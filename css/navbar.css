@@ -1,5 +1,7 @@
 .navbar {
     position: fixed;
+    z-index: 5;
+    opacity: 0.95;
     top: 0;
     width: calc(100vw - 100px);
     display: flex;

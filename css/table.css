@@ -1,4 +1,6 @@
 .table {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-wrap: wrap;
     margin: 6em 30px 0 30px;
