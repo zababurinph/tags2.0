@@ -71,9 +71,9 @@ const addFunction = (add, column, listener) => {
 
     let input = document.querySelector(`#${column.id}${data[column.id].length}`);
     input.addEventListener('click', inputClicker);
-    const inputlistener = (e) => { if (e.key === 'Enter') allClicker(e, column, input, add, listener, alllistener)};
+    const inputlistener = (e) => { if (e.key === 'Enter') allClicker(e, column, input, add, listener, alllistener) };
     input.addEventListener('keypress', inputlistener);
-    const alllistener = (e) => allClicker(e, column, input, add, listener, alllistener); document.addEventListener('click', alllistener );
+    const alllistener = (e) => allClicker(e, column, input, add, listener, alllistener); document.addEventListener('click', alllistener);
     // console.log(input);
 }
 
@@ -101,8 +101,16 @@ function allClicker(e, column, input, add, listener, alllistener) {
         input.blur();
 
         if (input.value !== '') {
-            data[column.id].push(input.value);
-            PUT();
+            let alreadyHere = false;
+            for (key in data) if (data[key].indexOf(input.value) !== -1) alreadyHere = true;
+            if (!alreadyHere) {
+                data[column.id].push(input.value);
+                PUT();
+            }
+            else {
+                dataItemToHTML(column);
+                alert('Такой тэг уже существует');
+            }
         }
         else dataItemToHTML(column);
 
