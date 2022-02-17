@@ -17,11 +17,16 @@ html, body {
     font-family: 'Comfortaa';
 }
 
+.content {
+    width: 90%;
+    margin: 0 auto;
+}
+
 .podval {
     position: relative;
     z-index: 1;
     text-align: center;
-    margin: 50px 50px 50px 50px;
+    margin-top: 30px;
     padding-bottom: 20px;
     box-shadow: var(--shadow);
     border-radius: 10px;
@@ -94,7 +99,7 @@ html, body {
 
 textarea {
     display: block;
-    margin: 0 auto 50px auto;
+    margin: 30px auto;
     resize: vertical;
     padding: 0.7em;
     border-radius: 10px;
@@ -102,8 +107,7 @@ textarea {
     font-size: 1.1em;
     box-shadow: var(--shadow);
     transition: all .15s ease;
-    width: 90%;
-    min-width: 400px;
+    width: calc(100% - 27px);
     font-family: 'Comfortaa';
 }
 
