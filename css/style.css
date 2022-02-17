@@ -21,7 +21,10 @@ html, body {
     position: relative;
     z-index: 1;
     text-align: center;
-    margin: 50px 50px 0 50px;
+    margin: 50px 50px 50px 50px;
+    padding-bottom: 20px;
+    box-shadow: var(--shadow);
+    border-radius: 10px;
 }
 
 .podval .vvod {
@@ -34,10 +37,16 @@ html, body {
     display: flex;
     align-items: center;
     margin: 10px 10px;
+    margin: 0 auto;
 }
 
 .podval .header {
     font-size: 1.3em;
+    background-color: var(--color-primary);
+    color: white;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .podval i {
@@ -101,4 +110,10 @@ html, body {
 
 .podval textarea:hover {
     background-color: rgb(247, 247, 247);
+}
+
+@media (max-width: 960px) {
+    .podval .vvod {
+        flex-direction: column;
+    }
 }

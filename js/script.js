@@ -42,19 +42,23 @@ const dataToHTML = () => {
     dataItemToHTML(low);
 }
 
-const refresh = () => fetch(url)
+const refresh = async () => await fetch(url)
     .then(response => response.json())
     .then(commits => {
         console.log('Download:', commits[id]);
         data = commits[id];
         dataToHTML();
+        addmain.addEventListener('click', mainlistener);
+        addhigh.addEventListener('click', highlistener);
+        addmid.addEventListener('click', midlistener);
+        addlow.addEventListener('click', lowlistener);
     });
 refresh();
 
-const mainlistener = () => addFunction(addmain, main, mainlistener); addmain.addEventListener('click', mainlistener);
-const highlistener = () => addFunction(addhigh, high, highlistener); addhigh.addEventListener('click', highlistener);
-const midlistener = () => addFunction(addmid, mid, midlistener); addmid.addEventListener('click', midlistener);
-const lowlistener = () => addFunction(addlow, low, lowlistener); addlow.addEventListener('click', lowlistener);
+const mainlistener = () => addFunction(addmain, main, mainlistener);
+const highlistener = () => addFunction(addhigh, high, highlistener); 
+const midlistener = () => addFunction(addmid, mid, midlistener); 
+const lowlistener = () => addFunction(addlow, low, lowlistener);
 
 const addFunction = (add, column, listener) => {
     let inner = `<li>
@@ -73,7 +77,9 @@ const addFunction = (add, column, listener) => {
     input.addEventListener('click', inputClicker);
     const inputlistener = (e) => { if (e.key === 'Enter') allClicker(e, column, input, add, listener, alllistener) };
     input.addEventListener('keypress', inputlistener);
-    const alllistener = (e) => allClicker(e, column, input, add, listener, alllistener); document.addEventListener('click', alllistener);
+    
+    const alllistener = (e) => allClicker(e, column, input, add, listener, alllistener);
+    document.addEventListener('click', alllistener);
     // console.log(input);
 }
 

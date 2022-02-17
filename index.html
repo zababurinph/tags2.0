@@ -13,66 +13,68 @@
     <main>
         <div class="navbar">
             <h1>Генератор хэштегов</h1>
-            <img src="/images/settings.png"/>
+            <img src="/images/settings.png" />
         </div>
 
-        <div class="table">
-            <div class="column" style="min-width: 11em;">
-                <div class="header">
-                    <div>Основные</div>
-                    <b id="addmain">+</b>
+        <div class="content">
+            <div class="table">
+                <div class="column" style="min-width: 11em;">
+                    <div class="header">
+                        <div>Основные</div>
+                        <b id="addmain">+</b>
+                    </div>
+                    <ul class="tags" id="main">
+                        <li style="text-align: center">Идет загрузка....</li>
+                    </ul>
                 </div>
-                <ul class="tags" id="main">
-                    <li>js_not_found</li>
-                </ul>
-            </div>
-            <div class="column" style="min-width: 16.5em;">
-                <div class="header">
-                    <div>Высокочастотные</div>
-                    <b id="addhigh">+</b>
+                <div class="column" style="min-width: 16.5em;">
+                    <div class="header">
+                        <div>Высокочастотные</div>
+                        <b id="addhigh">+</b>
+                    </div>
+                    <ul class="tags" id="high">
+                        <li style="text-align: center">Идет загрузка....</li>
+                    </ul>
                 </div>
-                <ul class="tags" id="high">
-                    <li>js_not_found</li>
-                </ul>
-            </div>
-            <div class="column" style="min-width: 16.5em;">
-                <div class="header">
-                    <div>Среднечастотные</div>
-                    <b id="addmid">+</b>
+                <div class="column" style="min-width: 16.5em;">
+                    <div class="header">
+                        <div>Среднечастотные</div>
+                        <b id="addmid">+</b>
+                    </div>
+                    <ul class="tags" id="mid">
+                        <li style="text-align: center">Идет загрузка....</li>
+                    </ul>
                 </div>
-                <ul class="tags" id="mid">
-                    <li>js_not_found</li>
-                </ul>
-            </div>
-            <div class="column" style="min-width: 15.5em;">
-                <div class="header">
-                    <div>Низкочастотные</div>
-                    <b id="addlow">+</b>
+                <div class="column" style="min-width: 15.5em;">
+                    <div class="header">
+                        <div>Низкочастотные</div>
+                        <b id="addlow">+</b>
+                    </div>
+                    <ul class="tags" id="low">
+                        <li style="text-align: center">Идет загрузка....</li>
+                    </ul>
                 </div>
-                <ul class="tags" id="low">
-                    <li>js_not_found</li>
-                </ul>
             </div>
-        </div>
 
-        <div class="podval">
-            <p class="header">Введите количество тегов каждого уровня</p>
-            <div class="vvod">
-                <div class="block">
-                    <i>Высокочастотные:</i>
-                    <input type="number" />
+            <div class="podval">
+                <p class="header">Введите количество тегов каждого уровня</p>
+                <div class="vvod">
+                    <div class="block">
+                        <i>Высокочастотные:</i>
+                        <input type="number" />
+                    </div>
+                    <div class="block">
+                        <i>Среднечастотные:</i>
+                        <input type="number" />
+                    </div>
+                    <div class="block">
+                        <i>Низкочастотные:</i>
+                        <input type="number" />
+                    </div>
                 </div>
-                <div class="block">
-                    <i>Среднечастотные:</i>
-                    <input type="number" />
-                </div>
-                <div class="block">
-                    <i>Низкочастотные:</i>
-                    <input type="number" />
-                </div>
+                <button>Сгенерировать</button>
+                <textarea></textarea>
             </div>
-            <button>Сгенерировать</button>
-            <textarea></textarea>
         </div>
     </main>
     <script src="/js/script.js"></script>
