@@ -1,4 +1,5 @@
-const url = 'https://620a9a0692946600171c5b7f.mockapi.io/db/tags/';
+const urlTags = 'https://620a9a0692946600171c5b7f.mockapi.io/db/tags/';
+const urlTagsCount = 'https://620a9a0692946600171c5b7f.mockapi.io/db/tagsCountDefault/';
 const error404 = `<h1 style='margin: 5em 30px; text-align: center;'>
     В данный момент на сервере проводятся технические работы<br>
     <br>
@@ -15,6 +16,13 @@ const addhigh = document.querySelector('#addhigh');
 const addmid = document.querySelector('#addmid');
 const addlow = document.querySelector('#addlow');
 
+const settings = document.querySelector('#settings');
+const back = document.querySelector('#back');
+
+const inputHigh = document.querySelector('#countHigh');
+const inputMid = document.querySelector('#countMid');
+const inputLow = document.querySelector('#countLow');
+
 const generatebtn = document.querySelector('#generate');
 const btnClickListener = (e) => btnClick(data);
 const id = 0;
@@ -30,6 +38,7 @@ const item = (i, id, column) => {
 }
 
 let data = {};
+let countTags = {};
 
 const dataItemToHTML = (column) => {
     let inner = '';
@@ -44,21 +53,37 @@ const dataToHTML = () => {
     dataItemToHTML(low);
 }
 
-const refresh = async () => await fetch(url)
-    .then(response => response.json())
-    .then(commits => {
-        console.log('Download:', commits[id]);
-        data = commits[id];
-        if (data !== 'N') {
-            dataToHTML();
-            addmain.addEventListener('click', mainlistener);
-            addhigh.addEventListener('click', highlistener);
-            addmid.addEventListener('click', midlistener);
-            addlow.addEventListener('click', lowlistener);
-            generatebtn.addEventListener('click', btnClickListener);
-        }
-        else document.querySelector('.content').innerHTML = error404;
-    });
+const refresh = async () => {
+    await fetch(urlTags)
+        .then(response => response.json())
+        .then(commits => {
+            console.log('Download:', commits[id]);
+            data = commits[id];
+            if (data !== 'N') {
+                dataToHTML();
+                addmain.addEventListener('click', mainlistener);
+                addhigh.addEventListener('click', highlistener);
+                addmid.addEventListener('click', midlistener);
+                addlow.addEventListener('click', lowlistener);
+                generatebtn.addEventListener('click', btnClickListener);
+                settings.addEventListener('click', settingsClick)
+                back.addEventListener('click', backClick)
+            }
+            else document.querySelector('.content').innerHTML = error404;
+        });
+    await fetch(urlTagsCount)
+        .then(response => response.json())
+        .then(commits => {
+            console.log('Download:', commits[id]);
+            countTags = commits[id];
+            if (countTags !== 'N') {
+                inputHigh.value = countTags.high;
+                inputMid.value = countTags.mid;
+                inputLow.value = countTags.low;
+            }
+            else document.querySelector('.content').innerHTML = error404;
+        });
+}
 refresh();
 
 const mainlistener = () => addFunction(addmain, main, mainlistener);
@@ -129,7 +154,7 @@ function allClicker(e, column, input, add, listener, alllistener) {
             }
             else {
                 dataItemToHTML(column);
-                alert('Такой тэг уже существует');
+                alert('Такой тег уже существует');
             }
         }
         else dataItemToHTML(column);
@@ -156,7 +181,7 @@ const btnClick = (data) => {
 
     for (let key in countHash) {
         if (data[key].length < countHash[key]) {
-            alert(`Error: тэгов меньше, чем введенное число`)
+            alert(`Error: тегов меньше, чем введенное число`)
             return;
         };
     }
@@ -180,7 +205,7 @@ function generate(data, countHash) {
     result = result.concat(shuffle(data.high).slice(0, countHash.high));
     result = result.concat(shuffle(data.mid).slice(0, countHash.mid));
     result = result.concat(shuffle(data.low).slice(0, countHash.low));
-    
+
     document.querySelector('#textarea').innerHTML = '';
     result.forEach(e => document.querySelector('#textarea').innerHTML += "#" + e + " ");
 }
@@ -196,7 +221,7 @@ const DELETE = async (column, id) => {
     console.log(data)
 }
 
-const POST = async () => await fetch(url, {
+const POST = async () => await fetch(urlTags, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -204,10 +229,28 @@ const POST = async () => await fetch(url, {
     body: JSON.stringify(data)
 });
 
-const PUT = async () => await fetch(`${url}${id + 1}`, {
+const PUT = async () => await fetch(`${urlTags}${id + 1}`, {
     method: 'PUT',
     headers: {
         'Content-Type': 'application/json;charset=utf-8'
     },
     body: JSON.stringify(data)
 });
+
+//---------------------------------------------------------------
+const PUT2 = async () => await fetch(`${urlTagsCount}${id + 1}`, {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(countTags)
+});
+
+
+//---------------------------------------------------------------
+const settingsClick = (e) => {
+    document.querySelector('main').style.transform = `translateX(-100vw)`;
+}
+const backClick = (e) => {
+    document.querySelector('main').style.transform = `translateX(0)`;
+}

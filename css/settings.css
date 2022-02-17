@@ -1,0 +1,32 @@
+.settings {
+    flex: 0 0 100vw;
+}
+
+.settings .header {
+    background-color: var(--color-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    opacity: 0.95;
+
+}
+
+.settings .header h1 {
+    font-size: 1.7em;
+}
+
+.settings .header img {
+    padding: 0 20px;
+    height: 35px;
+    cursor: pointer;
+    filter: drop-shadow(var(--shadow));
+    transition: transform 0.2s;
+}
+
+.settings .header img:hover {
+    transform: translateX(-10px);
+}
+
+.settings .header img:active {
+    transform: translateX(-15px);
+}
