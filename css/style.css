@@ -92,9 +92,9 @@ html, body {
     background-color: var(--color-primary);
 }
 
-.podval textarea {
+textarea {
     display: block;
-    margin: 20px auto;
+    margin: 0 auto 50px auto;
     resize: vertical;
     padding: 0.7em;
     border-radius: 10px;
@@ -104,11 +104,10 @@ html, body {
     transition: all .15s ease;
     width: 90%;
     min-width: 400px;
-    /* height: 100px; */
     font-family: 'Comfortaa';
 }
 
-.podval textarea:hover {
+textarea:hover {
     background-color: rgb(247, 247, 247);
 }
 
