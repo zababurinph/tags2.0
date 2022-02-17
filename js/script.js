@@ -1,4 +1,9 @@
 const url = 'https://620a9a0692946600171c5b7f.mockapi.io/db/tags/';
+const error404 = `<h1 style='margin: 5em 30px; text-align: center;'>
+    В данный момент на сервере проводятся технические работы<br>
+    <br>
+    Приносим свои извинения
+</h1>`
 
 const main = document.querySelector('#main');
 const high = document.querySelector('#high');
@@ -22,12 +27,7 @@ const item = (i, id, column) => {
     </li>`
 }
 
-let data = {
-    main: ['serverlost1'],
-    high: ['serverlost1', 'serverlost2'],
-    mid: ['serverlost1', 'serverlost2', 'serverlost3'],
-    low: ['serverlost1', 'serverlost2', 'serverlost3', 'serverlost4']
-}
+let data = {};
 
 const dataItemToHTML = (column) => {
     let inner = '';
@@ -47,17 +47,20 @@ const refresh = async () => await fetch(url)
     .then(commits => {
         console.log('Download:', commits[id]);
         data = commits[id];
-        dataToHTML();
-        addmain.addEventListener('click', mainlistener);
-        addhigh.addEventListener('click', highlistener);
-        addmid.addEventListener('click', midlistener);
-        addlow.addEventListener('click', lowlistener);
+        if (data !== 'N') {
+            dataToHTML();
+            addmain.addEventListener('click', mainlistener);
+            addhigh.addEventListener('click', highlistener);
+            addmid.addEventListener('click', midlistener);
+            addlow.addEventListener('click', lowlistener);
+        }
+        else document.querySelector('.content').innerHTML = error404;
     });
 refresh();
 
 const mainlistener = () => addFunction(addmain, main, mainlistener);
-const highlistener = () => addFunction(addhigh, high, highlistener); 
-const midlistener = () => addFunction(addmid, mid, midlistener); 
+const highlistener = () => addFunction(addhigh, high, highlistener);
+const midlistener = () => addFunction(addmid, mid, midlistener);
 const lowlistener = () => addFunction(addlow, low, lowlistener);
 
 const addFunction = (add, column, listener) => {
@@ -77,7 +80,7 @@ const addFunction = (add, column, listener) => {
     input.addEventListener('click', inputClicker);
     const inputlistener = (e) => { if (e.key === 'Enter') allClicker(e, column, input, add, listener, alllistener) };
     input.addEventListener('keypress', inputlistener);
-    
+
     const alllistener = (e) => allClicker(e, column, input, add, listener, alllistener);
     document.addEventListener('click', alllistener);
     // console.log(input);
@@ -124,6 +127,13 @@ function allClicker(e, column, input, add, listener, alllistener) {
     }
     console.log('all');
 }
+
+//---------------------------------------------------------------
+const generatebtn = document.querySelector('#generate');
+import { btnClick } from "./code.js";
+const btnClickListener = (e) => btnClick(data);
+generatebtn.addEventListener('click', btnClickListener);
+
 
 //---------------------------------------------------------------
 const DELETE = async (column, id) => {

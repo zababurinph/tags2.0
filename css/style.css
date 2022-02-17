@@ -55,7 +55,7 @@ html, body {
 }
 
 .podval input {
-    width: 50px;
+    width: 2.1em;
     font-size: 1em;
     border-radius: 10px;
     transition: all .15s ease;
@@ -102,9 +102,9 @@ html, body {
     font-size: 1.1em;
     box-shadow: var(--shadow);
     transition: all .15s ease;
-    width: 50%;
+    width: 90%;
     min-width: 400px;
-    height: 100px;
+    /* height: 100px; */
     font-family: 'Comfortaa';
 }
 
