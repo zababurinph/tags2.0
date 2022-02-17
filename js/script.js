@@ -1,3 +1,5 @@
+import { btnClick } from "./code.js";
+
 const url = 'https://620a9a0692946600171c5b7f.mockapi.io/db/tags/';
 const error404 = `<h1 style='margin: 5em 30px; text-align: center;'>
     В данный момент на сервере проводятся технические работы<br>
@@ -15,6 +17,8 @@ const addhigh = document.querySelector('#addhigh');
 const addmid = document.querySelector('#addmid');
 const addlow = document.querySelector('#addlow');
 
+const generatebtn = document.querySelector('#generate');
+const btnClickListener = (e) => btnClick(data);
 const id = 0;
 
 const item = (i, id, column) => {
@@ -53,6 +57,7 @@ const refresh = async () => await fetch(url)
             addhigh.addEventListener('click', highlistener);
             addmid.addEventListener('click', midlistener);
             addlow.addEventListener('click', lowlistener);
+            generatebtn.addEventListener('click', btnClickListener);
         }
         else document.querySelector('.content').innerHTML = error404;
     });
@@ -75,6 +80,8 @@ const addFunction = (add, column, listener) => {
 
     add.removeEventListener('click', listener);
     add.addEventListener('click', addClicker);
+    generatebtn.removeEventListener('click', btnClickListener);
+    generatebtn.addEventListener('click', generateClicker);
 
     let input = document.querySelector(`#${column.id}${data[column.id].length}`);
     input.addEventListener('click', inputClicker);
@@ -96,6 +103,10 @@ function addClicker(e) {
     console.log('add');
     // console.log(data);
 }
+function generateClicker(e) {
+    e.stopPropagation();
+    console.log('generate');
+}
 function inputClicker(e) {
     e.stopPropagation();
     console.log('input');
@@ -106,12 +117,14 @@ function allClicker(e, column, input, add, listener, alllistener) {
         document.removeEventListener('click', alllistener);
         add.removeEventListener('click', addClicker);
         add.addEventListener('click', listener);
+        generatebtn.removeEventListener('click', generateClicker);
+        generatebtn.addEventListener('click', btnClickListener);
         input.autofocus = false;
         input.blur();
 
         if (input.value !== '') {
             let alreadyHere = false;
-            for (key in data) if (data[key].indexOf(input.value) !== -1) alreadyHere = true;
+            for (let key in data) if (data[key].indexOf(input.value) !== -1) alreadyHere = true;
             if (!alreadyHere) {
                 data[column.id].push(input.value);
                 PUT();
@@ -129,27 +142,22 @@ function allClicker(e, column, input, add, listener, alllistener) {
 }
 
 //---------------------------------------------------------------
-const generatebtn = document.querySelector('#generate');
-import { btnClick } from "./code.js";
-const btnClickListener = (e) => btnClick(data);
-generatebtn.addEventListener('click', btnClickListener);
-
-
-//---------------------------------------------------------------
 const DELETE = async (column, id) => {
     data[column].splice(id, 1);
     let inner = '';
     data[column].map((i, index) => inner += item(i, index, column));
     document.querySelector(`#${column}`).innerHTML = inner;
+    // dataItemToHTML(column);
     PUT();
     console.log(data)
 }
+
 const POST = async () => await fetch(url, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify()
+    body: JSON.stringify(data)
 });
 
 const PUT = async () => await fetch(`${url}${id + 1}`, {
